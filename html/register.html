@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link  href="static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link  href="static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link  href="static/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+<script src="static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+
+
+</head>
+
+<body class="login">
+
+    <div class="content">
+        <h3 class="form-title">Get Otp Info</h3>
+        <div class="form-group">
+                <label class="control-label">Mobile Phone</label>
+            <div>
+                <input class="form-control" type="text" placeholder="telephone" name="telephone" id="telephone"/>
+            </div>
+
+         </div>
+        <div class="form-group">
+            <label class="control-label">Opt Code</label>
+            <div>
+                <input class="form-control" type="text" placeholder="otp code" name="otpCode" id="otpCode"/>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label">User Name</label>
+            <div>
+                <input class="form-control" type="text" placeholder="name" name="name" id="name"/>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label">Gender</label>
+            <div>
+                <input class="form-control" type="text" placeholder="gender" name="gender" id="gender"/>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label">Age</label>
+            <div>
+                <input class="form-control" type="text" placeholder="age" name="age" id="age"/>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Password</label>
+            <div>
+                <input class="form-control" type="password" placeholder="password" name="password" id="password"/>
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+        <button class="form-button" id="register" type="submit">Register</button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+    console.log( "ready go !" );
+
+  $('#register').on("click",function(){
+  var telephone=$("#telephone").val();
+  var age=$("#age").val();
+  var gender=$("#gender").val();
+  var name=$("#name").val();
+  var otpCode=$("#otpCode").val();
+  var password=$("#password").val();
+  if(telephone==null || telephone ==""){
+
+  alert("Telephone cant be empty.");
+  return;
+  }
+
+  if(age==null || age ==""){
+
+  alert("age cant be empty.");
+  return;
+  }
+   if(gender==null || gender ==""){
+
+  alert("gender cant be empty.");
+  return;
+  }
+   if(name==null || name ==""){
+
+  alert("name cant be empty.");
+  return;
+  }
+   if(otpCode==null || otpCode ==""){
+
+  alert("otpCode cant be empty.");
+  return;
+  }
+
+  if(password==null || password ==""){
+
+  alert("password cant be empty.");
+  return;
+  }
+
+
+           $.ajax({
+             type:"POST",
+             contentType:"application/x-www-form-urlencoded",
+             url:"http://localhost:8090/user/register",
+             crossDomain: true,
+             data:{"telephone":telephone,
+                   "otpCode":otpCode,
+                   "age":age,
+                   "gender":gender,
+                   "name":name,
+                   "password":password},
+
+            xhrFields:{withCredentials:true},
+            success:function(data){
+               if(data.status=="success"){
+
+                window.location.href="login.html";
+               }
+               else {
+                 alert ("otp send failed:"+data.data.errMsg);
+               }
+            },
+            error:function(data){
+            alert ("otp send failed, "+data.responseText);
+            }
+
+    });
+    return false;
+
+});
+})
+
+
+</script>
+
+
+</html>
