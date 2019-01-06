@@ -1,0 +1,25 @@
+
+    $('#createorder').on("click",function(){
+           $.ajax({
+             type:"POST",
+             contentType:"application/x-www-form-urlencoded",
+             url:"http://localhost:8090/order/createorder",
+             data:{"itemId":g_itemVO.id,amoiunt:1},
+
+            xhrFields:{withCredentials:true},
+            success:function(data){
+               if(data.status=="success"){
+                alert ("order successfully");
+               }
+               else {
+                 alert ("order failed:"+data.data.errMsg);
+               }
+            },
+            error:function(data){
+            alert ("order failed, "+data.responseText);
+            }
+
+    });
+    return false;
+
+});
